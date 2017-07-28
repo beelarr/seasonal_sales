@@ -2,8 +2,7 @@
  * Created by beelarr on 7/27/17.
  */
 
-    var Store_Items = (
-        function (){
+    var Store_Items = (function (){
             let items = []
             let categories = []
 
@@ -24,18 +23,32 @@
                         categories = JSON.parse(this.responseText);
                         category_loader(categories);
                     });
-                    cat_loader.open('GET', categories.json)
+                    cat_loader.open('GET', categories.json);
                     cat_loader.send();
 
                 }
             }
-        }
-)()
+        })()
+
 
 
 function item_loader(items) {
-            console.log(items.products[0].name)
-    document.querySelector('.products').innerHTML = items.products.name.join(', ')
+        // console.log(items)
+        console.log(items.products)
+        // console.log(items.products[0])
+        // console.log(items.products[0].name)
+
+    items.products.forEach((index)=>{
+            console.log(index)
+            console.log(index.name)
+
+    document.querySelector('.products').innerHTML += index.name
+
+
+    })
+
+
+
 
 }
 
