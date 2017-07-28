@@ -36,7 +36,7 @@
 
 function item_loader(items) {
    items.products.forEach((index)=>{
-       document.querySelector('.products').innerHTML += `<h3>${index.name}</h3><h5>${index.price}</h5> `;
+       document.querySelector('.products').innerHTML += `<h3>${index.name}</h3><h5 class="price" >${index.price}</h5> `;
        product_info.push(index)
 
    })
@@ -44,7 +44,7 @@ function item_loader(items) {
 
 
 function category_loader(categories) {
-    let select = document.querySelector('select').value;
+    let select = document.querySelector('option').value;
     let select_btn = document.querySelector('select');
 
     let winter_math = 1 - categories.categories[0].discount;
@@ -53,15 +53,21 @@ function category_loader(categories) {
 
     let winter_season = categories.categories[0].season_discount;
     let autumn_season = categories.categories[1].season_discount;
+    let spring_season = categories.categories[2].season_discount;
 
-    select_btn.addEventListener('change', ()=>{
+    select_btn.addEventListener('change', (event)=>{
         product_info.forEach((index)=>{
-            if(select === winter_season && index.category_id === 1){
-                document.querySelector('h5').innerHTML = (index.price * winter_math).toFixed(2)
-            }else if (select === autumn_season && index.category_id === 2){
-                document.querySelector('h5').innerHTML = (index.price * autumn_math).toFixed(2)
-            }else{document.querySelector('h5').innerHTML = (index.price * spring_math).toFixed(2)}
-        })
+
+            if(event.target.value === winter_season && index.category_id === 1){
+                console.log('winter', (index.price * winter_math).toFixed(2));
+                document.querySelector('h5').innerText = (index.price * winter_math).toFixed(2)
+            }else if (event.target.value === autumn_season && index.category_id === 2){
+                console.log('autumn',(index.price * autumn_math).toFixed(2));
+                document.querySelector('h5').innerText = (index.price * autumn_math).toFixed(2)
+            }else if(event.target.value === spring_season && index.category_id === 3){
+                document.querySelector('h5').innerText = (index.price * spring_math).toFixed(2);
+                console.log('spring',(index.price * spring_math).toFixed(2))
+            }})
     })
 }
 store_items.load_items(item_loader);
